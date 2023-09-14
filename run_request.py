@@ -28,6 +28,7 @@ github_session.auth = ("jingyun0829", token)
 response_text = github_session.get(access_point + "/rate_limit").text
 print(json.loads(response_text))
 
+## in case the ids are not exist
 for user_id in id_list: 
 	file_name = f"json_files/{user_id}.json"
 
@@ -36,14 +37,19 @@ for user_id in id_list:
 		#pass
 		print("File exists: ", user_id)
 	else:
-		
-		#user_id = "erinata"
-		print(user_id)
-		response_text = github_session.get(f"{access_point}/users/{user_id}").text
-		json_text = json.loads(response_text)
+		try:
 
-		
-		with open(file_name, "w") as f:
-		    json.dump(json_text, f)
+			#user_id = "erinata"
+			print(user_id)
+			response_text = github_session.get(f"{access_point}/users/{user_id}").text
+			json_text = json.loads(response_text)
 
-		time.sleep(1)    
+			# some tmp file and st
+			with open(file_name + ".tmp", "w") as f:
+			    json.dump(json_text, f)
+
+			os.rename(file_name + ".tmp", file_name)    
+		except Exception as e:	# all the expections, do not stop the program do whatever inside the code
+			print(e)
+
+	time.sleep(1)    

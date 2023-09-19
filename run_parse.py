@@ -9,7 +9,7 @@ if not os.path.exists("parsed_files"):
 ## new data frame
 dataset = pandas.DataFrame()
 
-json_file_name = "json_files/erinata.json"
+json_file_name = "json_files/dAAAb.json"
 
 
 # Open the token file and read its content
@@ -35,3 +35,21 @@ print(gh_id)
 print(gh_number_id)
 #print(plan_name)
 print(updated_at)
+
+
+row =pandas.DataFrame.from_records(
+	[
+	{
+		'gh_id': gh_id,
+		'gh_number_id' : gh_number_id,
+		'updated_at': updated_at
+	}
+	]
+
+	)
+
+print(row)
+dataset = pandas.concat([dataset,row])
+
+dataset.to_csv("parsed_files/github_user_data.csv", 
+	            index=False)

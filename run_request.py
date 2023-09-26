@@ -13,7 +13,7 @@ access_point = "https://api.github.com"
 with open("token", "r") as f:
     token = f.read().strip()  # strip() is used to remove any trailing newline or spaces
 
-id_list = pandas.read_csv("seed.csv")
+id_list = pandas.read_csv("input_files/seed.csv")
 id_list = id_list['ghid']   
 
 github_session = requests.Session()
